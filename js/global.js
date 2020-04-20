@@ -169,7 +169,6 @@ function doomForChart(idN) {
   let lBreak = document.createElement("br");
   chartHolder.setAttribute("id", `myChart${idN}`);
   chartHolder.appendChild(lBreak);
-  chartHolder.appendChild(lBreak);
 
   buildArea.appendChild(chartHolder);
 }
@@ -238,4 +237,54 @@ function getColor() {
 
 // monthDoom(keyMonths());
 //////////////////////////////////////////////////////
+
 /// Calculate complete data
+function calcData(dat) {
+  var counterM = 0,
+    counter = 0,
+    max = 0;
+  dat.forEach((ele1) => {
+    if (Array.isArray(ele1.mancha[0])) {
+      ele1.mancha.forEach((ele) => {
+        ele.forEach((ele) => {
+          counterM += ele;
+          counter += 1;
+          if (ele >= max) {
+            max = ele;
+          }
+        });
+      });
+    } else {
+      ele1.mancha.forEach((ele, ind) => {
+        counterM += parseInt(ele);
+        counter += 1;
+        if (ele >= max) {
+          max = ele;
+        }
+      });
+    }
+  });
+  let info = {
+    total: counterM,
+    avg: (counterM / counter).toFixed(2),
+    top: max,
+  };
+
+  return info;
+}
+
+let inf = calcData(completeData);
+console.log(inf);
+
+////////////////// doomBuildFor global stats
+function showStats(i) {
+  let total = document.getElementById("total");
+  let avg = document.getElementById("avg");
+  let top = document.getElementById("top");
+
+  total.innerText = `Total : ${i.total}`;
+  avg.innerText = ` Average : ${i.avg}`;
+  top.innerText = ` Max : ${i.top}`;
+}
+
+showStats(inf);
