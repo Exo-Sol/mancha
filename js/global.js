@@ -30,14 +30,50 @@ var byDate = completeData.slice(0);
 byDate.sort(function (a, b) {
   return a.date - b.date;
 });
-console.log("by date:");
-console.log(byDate);
+
+/////////////// cut array regarding Pon
+/////
+////
+///
+// makes array of objects for seven days at time
+function weekChart(allData) {
+  let curArr = [],
+    arr = [];
+
+  allData.forEach((ele, ind) => {
+    curArr.push(ele);
+    if (ind % 6 === 0 && ind !== 0) {
+      arr.push(curArr);
+      console.log(arr);
+      curArr = [];
+    }
+    // do {
+    //   console.log(ele);
+    // } while (ele.diW != "Pon");
+  });
+  if (curArr.length > 0) {
+    arr.push(curArr);
+  }
+  return arr;
+}
+let weekArr = weekChart(byDate);
+
+//
+/////
+///////
+//////////////
+///////////////////////
+//////////////////////////////
+
 /////////////////////////////////Make chart by days of month
-getMakeChart(byDate);
+for (let i = 0; i < weekArr.length; i++) {
+  doomForChart(i);
+  getMakeChart(weekArr[i], i);
+}
+// getMakeChart(byDate);
 ////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////CHART BY MONTH ///////////////////////////////////////////
-function getMakeChart(item) {
-  console.log(item);
+function getMakeChart(item, idN) {
   // array of tot mancha, time pairs
   var times = [],
     mTotcur = [],
@@ -47,14 +83,10 @@ function getMakeChart(item) {
     y;
   item.forEach((ele, ind1) => {
     ele.mancha.forEach((ele) => {
-      console.log(ele);
       reducer = (acc, cur) => acc + cur;
       x = ele.reduce(reducer);
-      console.log(ind1);
-      mTotcur.push(x);
 
-      console.log(mTot);
-      console.log("comma");
+      mTotcur.push(x);
     });
     y = mTotcur.reduce(reducer);
     mTot.push(y);
@@ -65,13 +97,10 @@ function getMakeChart(item) {
     times.push([ele.diW, ele.date]);
   });
 
-  console.log(mTot);
-  console.log(times);
   document.querySelector(".containerCart").style.display = "block";
-  document.getElementById("myChart").style.display = "block";
+  document.getElementById("myChart").style.display = "none";
 
-  let myChart = document.getElementById("myChart").getContext("2d");
-  console.log(myChart);
+  let myChart = document.getElementById(`myChart${idN}`).getContext("2d");
 
   var infoChart = new Chart(myChart, {
     type: "bar",
@@ -79,12 +108,12 @@ function getMakeChart(item) {
       labels: times,
       datasets: [
         {
+          maxBarThickness: 60,
           label: "Mancha day of month",
 
           data: mTot,
-          backgroundColor: "#007aa5",
+          backgroundColor: getColor(),
           borderWidth: 2,
-          borderColor: "#007aa5",
         },
       ],
     },
@@ -99,7 +128,7 @@ function getMakeChart(item) {
               display: false,
             },
             ticks: {
-              fontColor: "#687d8b", // this here
+              fontColor: "#ecd540", // this here
             },
           },
         ],
@@ -107,7 +136,7 @@ function getMakeChart(item) {
           {
             ticks: {
               beginAtZero: true,
-              fontColor: "#21abcd",
+              fontColor: "#45cea2",
             },
           },
         ],
@@ -132,3 +161,81 @@ function dayofWeek(date) {
   return weekDays[n];
 }
 ///////////////////////////////////////////////////////////////
+////// Doom ffor new chart
+
+function doomForChart(idN) {
+  let buildArea = document.querySelector(".containerCart");
+  let chartHolder = document.createElement("canvas");
+  let lBreak = document.createElement("br");
+  chartHolder.setAttribute("id", `myChart${idN}`);
+  chartHolder.appendChild(lBreak);
+  chartHolder.appendChild(lBreak);
+
+  buildArea.appendChild(chartHolder);
+}
+
+////////////////////////////////////////////////////
+///////////////Diff color for new chart
+function getColor() {
+  colors = [
+    "#5d8aa8",
+    "#efdecd",
+    "#9966cc",
+    "#7fffd4",
+    "#ff4f00",
+    "#f8de7e",
+    "#20b2aa",
+    "#e62020",
+    "#e9d66b",
+    "#007fff",
+    "#ffe135",
+    "#a2a2d0",
+    "#006a4e",
+    "#cd7f32",
+    "#b666d2",
+    "#ff6e4a",
+    "#9932cc",
+    "#872657",
+    "#483d8b",
+    "#003399",
+    "#93c572",
+    "#b0e0e6",
+    "#fc74fd",
+    "#ffb347",
+    "#78184a",
+    "#ae0c00",
+    "#e2062c",
+    "#cf1020",
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+///////////////////////////////////////////////////////
+////////////////////// Get month from keys function
+
+// function keyMonths() {
+//   for (var key in storage) {
+//     let dateSplitter = key.split(".");
+//     if (dateSplitter.length > 1) {
+//       console.log(dateSplitter);
+//       var months = new Set();
+//       months.add(dateSplitter[1]);
+//     }
+//   }
+//   return months;
+// }
+
+// /// Doom for choosing a month
+// function monthDoom(keyM) {
+//   let container = document.querySelector("#months");
+//   for (let item of keyM) {
+//     let newSpan = document.createElement("span");
+//     newSpan.setAttribute("id", item);
+
+//     newSpan.innerText = `Month : ${item}`;
+//     container.appendChild(newSpan);
+//   }
+// }
+
+// monthDoom(keyMonths());
+//////////////////////////////////////////////////////
+/// Calculate complete data
