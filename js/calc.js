@@ -2,9 +2,12 @@ function calculate(itemPassed) {
   var counterM = 0,
     counter = 0,
     max = 0;
+    timeArr = [];
+    
 
   if (Array.isArray(itemPassed.mancha[0])) {
     itemPassed.mancha.forEach((ele) => {
+      console.log(ele);
       ele.forEach((ele) => {
         counterM += ele;
         counter += 1;
@@ -63,8 +66,6 @@ function getMakeChart(item) {
     times.push(parseFloat(`${ele[0]}.${ele[1]}`));
   });
 
-  console.log(mTot);
-  console.log(times);
   document.querySelector(".containerCart").style.display = "block";
   document.getElementById("myChart").style.display = "block";
 
