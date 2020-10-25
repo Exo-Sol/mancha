@@ -233,30 +233,36 @@ function calculate() {
   var counterM = 0,
     counter = 0,
     max = 0;
-  console.log(retrivedItem);
 
-  if (Array.isArray(retrivedItem.mancha[0])) {
-    retrivedItem.mancha.forEach((ele) => {
-      ele.forEach((ele) => {
-        counterM += ele;
+  //for calculatin there has to be a first retrived item
+  if (retrivedItem) {
+    if (Array.isArray(retrivedItem.mancha[0])) {
+      retrivedItem.mancha.forEach((ele) => {
+        ele.forEach((ele) => {
+          counterM += ele;
+          counter += 1;
+          if (ele >= max) {
+            max = ele;
+          }
+        });
+      });
+    } else {
+      retrivedItem.mancha.forEach((ele, ind) => {
+        counterM += parseInt(ele);
         counter += 1;
         if (ele >= max) {
           max = ele;
         }
       });
-    });
-  } else {
-    retrivedItem.mancha.forEach((ele, ind) => {
-      counterM += parseInt(ele);
-      counter += 1;
-      if (ele >= max) {
-        max = ele;
-      }
-    });
+    }
   }
 
   appSelectors.tot.textContent = `Total: ${counterM} kn`;
-  appSelectors.avg.textContent = `Avg: ${(counterM / counter).toFixed(2)} kn`;
+  counterM > 0
+    ? (appSelectors.avg.textContent = `Avg: ${(counterM / counter).toFixed(
+        2
+      )} kn`)
+    : (appSelectors.avg.textContent = `Avg: 0 kn`);
   appSelectors.top.textContent = `Top: ${max} kn`;
 }
 

@@ -2,28 +2,32 @@ function calculate(itemPassed) {
   var counterM = 0,
     counter = 0,
     max = 0;
-    timeArr = [];
-    
+  timeArr = [];
 
-  if (Array.isArray(itemPassed.mancha[0])) {
-    itemPassed.mancha.forEach((ele) => {
-      console.log(ele);
-      ele.forEach((ele) => {
-        counterM += ele;
+  if (Array.isArray(itemPassed)) {
+    console.log(itemPassed);
+    if (Array.isArray(itemPassed.mancha[0])) {
+      itemPassed.mancha.forEach((ele) => {
+        console.log(ele);
+        ele.forEach((ele) => {
+          counterM += ele;
+          counter += 1;
+          if (ele >= max) {
+            max = ele;
+          }
+        });
+      });
+    } else {
+      itemPassed.mancha.forEach((ele, ind) => {
+        counterM += parseInt(ele);
         counter += 1;
         if (ele >= max) {
           max = ele;
         }
       });
-    });
+    }
   } else {
-    itemPassed.mancha.forEach((ele, ind) => {
-      counterM += parseInt(ele);
-      counter += 1;
-      if (ele >= max) {
-        max = ele;
-      }
-    });
+    console.log(itemPassed);
   }
 
   let info = {
@@ -51,6 +55,7 @@ function dayofWeek(date) {
 
 function getMakeChart(item) {
   // array of tot mancha, time pairs
+  console.log(item);
   var times = [],
     mTot = [],
     reducer,
