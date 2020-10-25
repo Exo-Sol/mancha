@@ -57,6 +57,7 @@ let appSelectors = {
   tot: document.querySelector("#total"),
   avg: document.querySelector("#avg"),
   top: document.querySelector("#top"),
+  zero: document.querySelector("#perc"),
   clearDay: document.querySelector("#nukeDay"),
   changeMode: document.querySelector("#comma"),
 };
@@ -102,7 +103,7 @@ appSelectors.saveC.addEventListener("click", () => {
     if (!Number.isNaN(x)) {
       currentMancha.push(x);
       showCurrentM();
-      appSelectors.custom.value = "";
+      appSelectors.custom.value = "0";
     }
   } else {
     if (curContainer > 0) {
@@ -240,12 +241,17 @@ function calculate() {
   var counterM = 0,
     counter = 0,
     max = 0;
+  zeros = 0;
 
   //for calculatin there has to be a first retrived item
   if (retrivedItem) {
     if (Array.isArray(retrivedItem.mancha[0])) {
       retrivedItem.mancha.forEach((ele) => {
         ele.forEach((ele) => {
+          if (ele === 0) {
+            zeros += 1;
+          }
+          console.log(zeros);
           counterM += ele;
           counter += 1;
           if (ele >= max) {
@@ -255,6 +261,9 @@ function calculate() {
       });
     } else {
       retrivedItem.mancha.forEach((ele, ind) => {
+        if (ele === 0) {
+          zeros += 1;
+        }
         counterM += parseInt(ele);
         counter += 1;
         if (ele >= max) {
@@ -271,6 +280,9 @@ function calculate() {
       )} kn`)
     : (appSelectors.avg.textContent = `Avg: 0 kn`);
   appSelectors.top.textContent = `Top: ${max} kn`;
+  appSelectors.zero.textContent = `Perc: ${
+    100 - 100 * (zeros / counter).toFixed(2)
+  }%`;
 }
 
 //////////////////////////////////////////////////////////////////////////

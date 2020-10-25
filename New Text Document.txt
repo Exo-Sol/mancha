@@ -1,0 +1,1 @@
+dodat broj ukupan tura sad kad ima mogucnost nule
