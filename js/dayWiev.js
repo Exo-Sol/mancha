@@ -128,7 +128,10 @@ arrowD.addEventListener("click", makeDrop);
 var on = true;
 function makeDrop() {
   let keys1 = Object.keys(localStorage).sort();
-  let keys = keys1.map((x) => parseFloat(x));
+  console.log(keys1);
+  // removed parse float because it removed zero from date
+
+  let keys = keys1.map((x) => x);
   keys = keys.sort((a, b) => a - b);
   console.log(keys);
 
@@ -172,7 +175,6 @@ function makeDrop() {
 
   document.querySelector("#dropdown").addEventListener("click", (event) => {
     let targetDay = event.target.innerText;
-
     retrivedItem = JSON.parse(localStorage.getItem(targetDay));
     console.log(retrivedItem);
     document.querySelector("#conta").innerText = "";
