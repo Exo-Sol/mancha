@@ -9,7 +9,7 @@ let storage = window.localStorage;
 
 for (var key in storage) {
   if (storage.hasOwnProperty(key)) {
-    dateKey = parseFloat(key);
+    dateKey = key;
     weekDay = dayofWeek(key);
 
     data = JSON.parse(storage[key]);

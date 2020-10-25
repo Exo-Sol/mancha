@@ -5,7 +5,6 @@ function calculate(itemPassed) {
   timeArr = [];
 
   if (Array.isArray(itemPassed)) {
-    console.log(itemPassed);
     if (Array.isArray(itemPassed.mancha[0])) {
       itemPassed.mancha.forEach((ele) => {
         console.log(ele);

@@ -136,9 +136,16 @@ function nukeDay() {
 appSelectors.changeMode.addEventListener("click", (eve) => {
   if (comSwitch) {
     appSelectors.changeMode.style.filter = "invert(100)";
+    appSelectors.changeMode.style.transform = "rotate(180deg)";
+    appSelectors.saveC.style.backgroundColor = "#8ecae6";
+    appSelectors.custom.innerHTML = "save";
     comSwitch = false;
   } else {
     appSelectors.changeMode.style.filter = "invert(0)";
+    appSelectors.changeMode.style.transform = "rotate(-180deg)";
+    appSelectors.saveC.style.backgroundColor = "rgb(240, 225, 89)";
+    appSelectors.custom.innerHTML = "0";
+
     comSwitch = true;
   }
 });

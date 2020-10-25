@@ -192,28 +192,31 @@ function makeDrop() {
 /////// Aditional information when diaplying diff dates from fun above
 
 function addInfo(item, day) {
-  let infos = calculate(item);
-  dateToday = date(new Date());
-  dateToday = dateToday.day + "." + dateToday.month;
-  // calling function of day in the 7day cycle
-  const dayWeek = dayofWeek(day);
+  // skip for todays date
+  if (day != dateTodayKey) {
+    let infos = calculate(item);
+    dateToday = date(new Date());
+    dateToday = dateToday.day + "." + dateToday.month;
+    // calling function of day in the 7day cycle
+    const dayWeek = dayofWeek(day);
 
-  let infoCont = document.querySelector("#conta");
-  let dayTimeLi = document.createElement("li");
-  let addInfoLi = document.createElement("li");
-  let br = document.createElement("br");
+    let infoCont = document.querySelector("#conta");
+    let dayTimeLi = document.createElement("li");
+    let addInfoLi = document.createElement("li");
+    let br = document.createElement("br");
 
-  if (day == dateTodayKey) {
-    dayTimeLi.innerText = "Today";
-  } else {
-    dayTimeLi.innerText = `Date: ${day} \n ${dayWeek}`;
+    if (day == dateTodayKey) {
+      dayTimeLi.innerText = "Today";
+    } else {
+      dayTimeLi.innerText = `Date: ${day} \n ${dayWeek}`;
+    }
+    dayTimeLi.style.marginTop = "20px";
+    dayTimeLi.style.color = "#bcd4e6";
+    addInfoLi.style.color = "#21abcd";
+
+    addInfoLi.innerText = `Tot ${infos.total} \n Avg ${infos.avg} \nTop ${infos.top}`;
+    infoCont.appendChild(dayTimeLi);
+    infoCont.appendChild(br);
+    infoCont.appendChild(addInfoLi);
   }
-  dayTimeLi.style.marginTop = "20px";
-  dayTimeLi.style.color = "#bcd4e6";
-  addInfoLi.style.color = "#21abcd";
-
-  addInfoLi.innerText = `Tot ${infos.total} \n Avg ${infos.avg} \nTop ${infos.top}`;
-  infoCont.appendChild(dayTimeLi);
-  infoCont.appendChild(br);
-  infoCont.appendChild(addInfoLi);
 }
