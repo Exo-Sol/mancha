@@ -3,12 +3,16 @@ function calculate(itemPassed) {
     counter = 0,
     max = 0;
   timeArr = [];
+  zeros = 0;
 
-  if (Array.isArray(itemPassed)) {
+  if (itemPassed) {
     if (Array.isArray(itemPassed.mancha[0])) {
       itemPassed.mancha.forEach((ele) => {
         console.log(ele);
         ele.forEach((ele) => {
+          if (ele === 0) {
+            zeros += 1;
+          }
           counterM += ele;
           counter += 1;
           if (ele >= max) {
@@ -18,6 +22,9 @@ function calculate(itemPassed) {
       });
     } else {
       itemPassed.mancha.forEach((ele, ind) => {
+        if (ele === 0) {
+          zeros += 1;
+        }
         counterM += parseInt(ele);
         counter += 1;
         if (ele >= max) {
@@ -33,6 +40,8 @@ function calculate(itemPassed) {
     total: counterM,
     avg: (counterM / counter).toFixed(2),
     top: max,
+    perc: 100 - 100 * (zeros / counter).toFixed(2),
+    all: counter,
   };
 
   return info;

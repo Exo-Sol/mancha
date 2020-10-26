@@ -1,1 +1,2 @@
 dodat broj ukupan tura sad kad ima mogucnost nule
+calc js. calculete wit ittem passed dosent work, find answer in macha calculate

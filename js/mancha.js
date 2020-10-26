@@ -58,6 +58,7 @@ let appSelectors = {
   avg: document.querySelector("#avg"),
   top: document.querySelector("#top"),
   zero: document.querySelector("#perc"),
+  all: document.querySelector("#allDeliv"),
   clearDay: document.querySelector("#nukeDay"),
   changeMode: document.querySelector("#comma"),
 };
@@ -273,16 +274,17 @@ function calculate() {
     }
   }
 
-  appSelectors.tot.textContent = `Total: ${counterM} kn`;
+  appSelectors.tot.textContent = `Total : ${counterM} kn`;
   counterM > 0
-    ? (appSelectors.avg.textContent = `Avg: ${(counterM / counter).toFixed(
+    ? (appSelectors.avg.textContent = `Avg : ${(counterM / counter).toFixed(
         2
       )} kn`)
-    : (appSelectors.avg.textContent = `Avg: 0 kn`);
-  appSelectors.top.textContent = `Top: ${max} kn`;
-  appSelectors.zero.textContent = `Perc: ${
+    : (appSelectors.avg.textContent = `Avg : 0 kn`);
+  appSelectors.top.textContent = `Top : ${max} kn`;
+  appSelectors.zero.textContent = `Perc : ${
     100 - 100 * (zeros / counter).toFixed(2)
-  }%`;
+  } %`;
+  appSelectors.all.textContent = `Delivered : ${counter}`;
 }
 
 //////////////////////////////////////////////////////////////////////////

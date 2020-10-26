@@ -177,6 +177,7 @@ function makeDrop() {
     let targetDay = event.target.innerText;
     retrivedItem = JSON.parse(localStorage.getItem(targetDay));
     console.log(retrivedItem);
+    console.log(targetDay);
     document.querySelector("#conta").innerText = "";
     show();
     addInfo(retrivedItem, targetDay);
@@ -193,30 +194,30 @@ function makeDrop() {
 
 function addInfo(item, day) {
   // skip for todays date
-  if (day != dateTodayKey) {
-    let infos = calculate(item);
-    dateToday = date(new Date());
-    dateToday = dateToday.day + "." + dateToday.month;
-    // calling function of day in the 7day cycle
-    const dayWeek = dayofWeek(day);
 
-    let infoCont = document.querySelector("#conta");
-    let dayTimeLi = document.createElement("li");
-    let addInfoLi = document.createElement("li");
-    let br = document.createElement("br");
+  let infos = calculate(item);
+  console.log(infos);
+  dateToday = date(new Date());
+  dateToday = dateToday.day + "." + dateToday.month;
+  // calling function of day in the 7day cycle
+  const dayWeek = dayofWeek(day);
 
-    if (day == dateTodayKey) {
-      dayTimeLi.innerText = "Today";
-    } else {
-      dayTimeLi.innerText = `Date: ${day} \n ${dayWeek}`;
-    }
-    dayTimeLi.style.marginTop = "20px";
-    dayTimeLi.style.color = "#bcd4e6";
-    addInfoLi.style.color = "#21abcd";
+  let infoCont = document.querySelector("#conta");
+  let dayTimeLi = document.createElement("li");
+  let addInfoLi = document.createElement("li");
+  let br = document.createElement("br");
 
-    addInfoLi.innerText = `Tot ${infos.total} \n Avg ${infos.avg} \nTop ${infos.top}`;
-    infoCont.appendChild(dayTimeLi);
-    infoCont.appendChild(br);
-    infoCont.appendChild(addInfoLi);
+  if (day == dateTodayKey) {
+    dayTimeLi.innerText = "Today";
+  } else {
+    dayTimeLi.innerText = `Date: ${day} \n ${dayWeek}`;
   }
+  dayTimeLi.style.marginTop = "20px";
+  dayTimeLi.style.color = "#bcd4e6";
+  addInfoLi.style.color = "#21abcd";
+
+  addInfoLi.innerText = `Tot M.. ${infos.total} kn \n Avg M.. ${infos.avg} kn \nTop M.. ${infos.top} kn \nPerc.. ${infos.perc} % \nTot Delivered.. ${infos.all}`;
+  infoCont.appendChild(dayTimeLi);
+  infoCont.appendChild(br);
+  infoCont.appendChild(addInfoLi);
 }

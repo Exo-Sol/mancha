@@ -243,10 +243,14 @@ function calcData(dat) {
   var counterM = 0,
     counter = 0,
     max = 0;
+  zeros = 0;
   dat.forEach((ele1) => {
     if (Array.isArray(ele1.mancha[0])) {
       ele1.mancha.forEach((ele) => {
         ele.forEach((ele) => {
+          if (ele === 0) {
+            zeros += 1;
+          }
           counterM += ele;
           counter += 1;
           if (ele >= max) {
@@ -256,6 +260,9 @@ function calcData(dat) {
       });
     } else {
       ele1.mancha.forEach((ele, ind) => {
+        if (ele === 0) {
+          zeros += 1;
+        }
         counterM += parseInt(ele);
         counter += 1;
         if (ele >= max) {
@@ -268,6 +275,8 @@ function calcData(dat) {
     total: counterM,
     avg: (counterM / counter).toFixed(2),
     top: max,
+    perc: 100 - 100 * (zeros / counter).toFixed(2),
+    all: counter,
   };
 
   return info;
@@ -281,10 +290,14 @@ function showStats(i) {
   let total = document.getElementById("total");
   let avg = document.getElementById("avg");
   let top = document.getElementById("top");
+  let perc = document.getElementById("perc");
+  let all = document.getElementById("all");
 
   total.innerText = `Total : ${i.total}`;
   avg.innerText = ` Average : ${i.avg}`;
   top.innerText = ` Max : ${i.top}`;
+  perc.innerText = ` Percentage : ${i.perc}`;
+  all.innerText = `All delivered : ${i.all}`;
 }
 
 showStats(inf);

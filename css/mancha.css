@@ -191,7 +191,6 @@ h3 {
   background-color: rgb(240, 225, 89);
   box-shadow: -20px 0px 100px -15px green;
 
-  font-weight: 900;
   color: black;
 
   font-family: "IBM Plex Mono", monospace;
@@ -202,6 +201,7 @@ h3 {
 
   margin-left: -3%;
   font-size: 30px;
+  font-weight: 900;
 }
 
 #nukeDay {
@@ -234,5 +234,10 @@ img#comma {
 }
 
 #perc {
-  color: rgba(240, 248, 255, 0.459);
+  color: rgba(251, 251, 251, 0.678);
+}
+
+#allDeliv {
+  color: rgb(34, 255, 255);
+  font-weight: 300;
 }
